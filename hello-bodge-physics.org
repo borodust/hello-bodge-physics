@@ -1,0 +1,40 @@
+#+PROPERTY: header-args :mkdirp yes
+#+PROPERTY: header-args:lisp :results "output silent"
+#+PROPERTY: header-args:glsl :results "none"
+
+* Introduction into =cl-bodge= physics system
+
+This step-by-step guide will introduce you to =cl-bodge= physics API provided by
+=cl-bodge/physics= system.
+
+** =cl-bodge/physics= overview
+
+** Examples
+
+- [[file:minimal-example.org][Minimal Example]]
+
+** ASDF definitions
+
+
+#+BEGIN_SRC lisp :tangle hello-bodge-physics.asd :eval no
+  (asdf:defsystem :hello-bodge-physics
+    :description "Guide to physics system of cl-bodge"
+    :version "1.0.0"
+    :author "Pavel Korolev"
+    :license "MIT"
+    :mailto "dev@borodust.org"
+    :depends-on (cl-bodge/physics cl-bodge/physics/3d cl-bodge/physics/2d bodge-appkit)
+    :pathname "src"
+    :serial t)
+
+  (asdf:defsystem :hello-bodge-physics/basic
+    :description "Simplest possible example for cl-bodge/physics"
+    :version "1.0.0"
+    :author "Pavel Korolev"
+    :license "MIT"
+    :mailto "dev@borodust.org"
+    :depends-on (hello-bodge-physics)
+    :pathname "src/basic/"
+    :serial t
+    :components ((:file "app")))
+#+END_SRC
