@@ -34,12 +34,22 @@ request shapes contact information like contact normal, position and penetration
 depth. /pre-solve/ and /post-solve/ callbecks are setup during universe creation and should be
 supplied as arguments to =make-universe= function if needed.
 
+** Guide How-To
+
+This guide is written in literate programming style - documentation is your code. You can
+evaluate provided examples block-by-block in your Common Lisp REPL of choice, use =org-mode= to
+do the same in a more convenient fasion or execute all code blocks in a buffer at once, or,
+ultimately, you can just load any system described below in [[#asdf-definitions][ASDF definitions]] section and call
+appropriate =run-example= functions.
+
 ** Examples
 
 - [[file:minimal-example.org][Minimal Example]]
 
 ** ASDF definitions
-
+:PROPERTIES:
+:CUSTOM_ID: asdf-definitions
+:END:
 
 #+BEGIN_SRC lisp :tangle hello-bodge-physics.asd :eval no
   (asdf:defsystem :hello-bodge-physics
