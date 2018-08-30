@@ -17,4 +17,4 @@
   :depends-on (hello-bodge-physics)
   :pathname "src/basic/"
   :serial t
-  :components ((:file "app")))
+  :components ((:file "example")))

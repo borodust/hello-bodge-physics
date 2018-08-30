@@ -4,7 +4,7 @@
 
 * Minimal example
 
-This example demonstrates few basic =cl-bodge/physics= concepts in a very simple simulation.
+This example demonstrates few very basic =cl-bodge/physics= concepts in a very simple simulation.
 
 ** Setup
 
@@ -14,26 +14,48 @@ Lets load all necessary code to continue working interactively in the REPL or wi
 #+END_SRC
 
 Our package we are going to evaluate the code in:
-#+BEGIN_SRC lisp :tangle src/basic/app.lisp
+#+BEGIN_SRC lisp :tangle src/basic/example.lisp
   (cl:defpackage :hello-bodge-physics/basic
     (:use :cl :cl-bodge.engine :cl-bodge.physics))
 #+END_SRC
 
 
-#+BEGIN_SRC lisp :tangle src/basic/app.lisp
+** Simulation
+
+It's not really much required to get simulation results out of =cl-bodge=. As mentioned in
+overview, we need a universe and a body. For it to move, we actually need to set a universe
+gravity to a non-zero value and observe the universe in a loop.
+
+#+BEGIN_SRC lisp :tangle src/basic/example.lisp
   (cl:in-package :hello-bodge-physics/basic)
 
   (defun run-example ()
+    ;; Start engine with the physics system enabled
     (startup '(:engine (:systems (physics-system))))
+
     (unwind-protect
+         ;; Our universe would be a 2D one in this example
          (let* ((universe (make-universe :2d))
+                ;; Just a body without a shape and with default mass
                 (body (make-rigid-body universe)))
+           ;; Lets setup a non-zero gravity for our body to have a free fall
            (setf (gravity universe) (vec2 0 -10))
-           (loop for i below 100
+           ;; And here our simulation loop
+           (loop repeat 100
+                 ;; We just observe universe every 0.014s
                  do (observe-universe universe 0.014)
-                    (log:info "~A" (body-position body)))
+                    ;; And check body position every iteration
+                    (format t "~&Body position: ~A" (body-position body)))
+           ;; Cleaning up universe
+           (dispose body)
            (dispose universe))
+      ;; Shutting down engine to free resources acquired by the engine
       (shutdown)))
 
   (export 'run-example)
+#+END_SRC
+
+To run it, invoke
+#+BEGIN_SRC lisp
+(hello-bodge-physics/basic:run-example)
 #+END_SRC

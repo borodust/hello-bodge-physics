@@ -20,9 +20,9 @@ in a loop. You can then query various properties of rigid bodies like position, 
 velocity, etc to check their state and act accordingly (e.g. render in appropriate positions).
 
 By default, bodies has no bounds and won't interact with each other. To enable collision
-detection and let bodies collide you would need to create a shapes with various
-=#'make-\*-shape= functions passing a body as an argument, and, possibly, set an appropriate
-body mass via =infuse-*-mass= function family.
+detection and let bodies collide you would need to create a shapes with various =make-*-shape=
+functions passing a body as an argument, and, possibly, set an appropriate body mass via
+=infuse-*-mass= function family.
 
 Shapes can collide with each other during =#'observe-universe= step. If that happens,
 /pre-solve/ callback is called first. There you can check if you want to ignore that collision
@@ -37,8 +37,8 @@ supplied as arguments to =make-universe= function if needed.
 ** Guide How-To
 
 This guide is written in literate programming style - documentation is your code. You can
-evaluate provided examples block-by-block in your Common Lisp REPL of choice, use =org-mode= to
-do the same in a more convenient fasion or execute all code blocks in a buffer at once, or,
+evaluate provided examples block-by-block in your Common Lisp REPL of choice, or use =org-mode=
+to do the same in a more convenient fasion or execute all code blocks in a buffer at once, or,
 ultimately, you can just load any system described below in [[#asdf-definitions][ASDF definitions]] section and call
 appropriate =run-example= functions.
 
@@ -71,5 +71,5 @@ appropriate =run-example= functions.
     :depends-on (hello-bodge-physics)
     :pathname "src/basic/"
     :serial t
-    :components ((:file "app")))
+    :components ((:file "example")))
 #+END_SRC
