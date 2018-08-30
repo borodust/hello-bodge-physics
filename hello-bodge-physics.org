@@ -9,6 +9,31 @@ This step-by-step guide will introduce you to =cl-bodge= physics API provided by
 
 ** =cl-bodge/physics= overview
 
+=cl-bodge= supports 2D and 3D rigid body physics simulation out of the box via
+=cl-bodge.physics:physics-system=. It has unified API across dimensions and any physics engine
+can be plugged in anytime, so it is similar to [[https://en.wikipedia.org/wiki/Physics_Abstraction_Layer][PAL]] in this regard.
+
+To start simulating anyting, you first would need to create a universe (with =#'make-universe=)
+in which our rigid body objects would live. We then populate universe with rigid bodies (made
+with =#'make-rigid-body=) and begin stepping through universe timeline with =#'observe-universe=
+in a loop. You can then query various properties of rigid bodies like position, rotation,
+velocity, etc to check their state and act accordingly (e.g. render in appropriate positions).
+
+By default, bodies has no bounds and won't interact with each other. To enable collision
+detection and let bodies collide you would need to create a shapes with various
+=#'make-\*-shape= functions passing a body as an argument, and, possibly, set an appropriate
+body mass via =infuse-*-mass= function family.
+
+Shapes can collide with each other during =#'observe-universe= step. If that happens,
+/pre-solve/ callback is called first. There you can check if you want to ignore that collision
+or continue processing it returning =nil= or =t= accordingly. You also can set collision
+properties like friction or elasticity here. If you decide a collision happening is valid and
+return =t= out of /pre-solve/ callback, then /post-solve/ callback will be called after full
+collision processing is done. Within dynamic environment of /post-solve/ callback you can then
+request shapes contact information like contact normal, position and penetration
+depth. /pre-solve/ and /post-solve/ callbecks are setup during universe creation and should be
+supplied as arguments to =make-universe= function if needed.
+
 ** Examples
 
 - [[file:minimal-example.org][Minimal Example]]
