@@ -4,7 +4,7 @@
   :author "Pavel Korolev"
   :license "MIT"
   :mailto "dev@borodust.org"
-  :depends-on (cl-bodge/physics cl-bodge/physics/3d cl-bodge/physics/2d bodge-appkit)
+  :depends-on (cl-bodge/physics cl-bodge/physics/3d cl-bodge/physics/2d)
   :pathname "src"
   :serial t)
 
